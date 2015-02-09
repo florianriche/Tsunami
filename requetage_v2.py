@@ -51,7 +51,6 @@ def Requetage(SeismeLatitude,SeismeLongitude, timestampTdT):
         Intervalles.append(strTime)
     # request on CASSANDRA
 
-    start = time.time()
     for ville in Villes:
         for t in Intervalles:
             Result = session.execute("SELECT tels FROM test_spark_bigtext WHERE T = %s AND Id_Ville = %s;", (t, ville))
@@ -72,9 +71,6 @@ def Requetage(SeismeLatitude,SeismeLongitude, timestampTdT):
                 insertbatch(Batch,session)
 
                 print "youpiiiiiii" + str(i)
-
-    elapsed = (time.time() - start)
-    print "elapsed time : " + str(elapsed)
 
     return Result
 
