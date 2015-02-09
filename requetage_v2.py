@@ -32,9 +32,7 @@ def insertbatch(rowsToAdd,session):
     batch = BatchStatement()
     for row in rowsToAdd:
 
-        print "row[0]",row[0]
-        print "row[1]",row[1]
-        print "row[2]",row[2]
+
         batch.add(SimpleStatement("INSERT INTO cassandraresult(tel,lat,longi) values(%s,%s,%s)"),(row[2],row[0],row[1]))
     session.execute(batch)
 
