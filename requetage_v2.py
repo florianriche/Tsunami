@@ -37,12 +37,7 @@ def insertbatch(rowsToAdd,session):
 
 # select Tel, lat and long being in the cities in the seism area
 def Requetage(SeismeLatitude,SeismeLongitude, timestampTdT):
-"""
-    SeismeLatitude  = 35.01
-    SeismeLongitude = 135.01
-    timestampTdT    = '2015-01-25 10:50'
-"""
-        # select villes
+    # select villes
     Villes=findListVilles(SeismeLatitude,SeismeLongitude)
     # convert string to datetime
     time = round_up(datetime.datetime.strptime(timestampTdT, '%Y-%m-%d %H:%M'))
