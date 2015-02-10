@@ -8,8 +8,8 @@ sudo apt-get install python-pip python-dev build-essential
 sudo pip install --upgrade pip
 sudo pip install --upgrade virtualenv
 
-pip install --upgrade setuptools
+sudo pip install --upgrade setuptools
 
-pip install cassandra-driver
-pip install datetime
-
+sudo pip install cassandra-driver
+sudo pip install datetime
+sudo pip install pandas
