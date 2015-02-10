@@ -41,20 +41,23 @@ def round_up(tm):
     return newtime
 
 # function that insert the results of a the queries to a Cassandra table "cassandraresult"
-def insertbatch(rowsToAdd,session):
+def insertbatch(rowsToAdd,session, seismetime,warnedTime):
     batch = BatchStatement()
     for row in rowsToAdd:
-        batch.add(SimpleStatement("INSERT INTO cassandraresult(tel,lat,longi) values(%s,%s,%s)"),(row[2],row[0],row[1]))
+        batch.add(SimpleStatement("INSERT INTO cassandraresult(seismeTime,tel,lat,longi,warnedTime) values(%s,%s,%s)"),(seismetime,row[2],row[0],row[1],warnedTime))
     session.execute(batch)
 
 # select Tel, lat and long being in the cities in the seism area: perform queries
 def Requetage(SeismeLatitude,SeismeLongitude, timestampTdT):
+    start=datetime.datetime.now()
     # select villes
     Villes=findListVilles(SeismeLatitude,SeismeLongitude)
     # convert string to datetime
     time = round_up(datetime.datetime.strptime(timestampTdT, '%Y-%m-%d %H:%M'))
     Intervalles=[time.strftime('%Y-%m-%d %H:%M')]
     Result = []
+    Warnedtab= []
+    WarnedCounter = 0
     # select an hour from timestampTdT
     for i in range(10,70,10):
         time = time+datetime.timedelta(0,0,0,0,10,0,0)
@@ -74,15 +77,30 @@ def Requetage(SeismeLatitude,SeismeLongitude, timestampTdT):
                 batchSize=0
                 i = 0
                 for row in (rows[:-1]):
+                    
                     i+=1
                     batchSize=batchSize+1
                     Batch.append(row.split("/"))
                     if(batchSize==10000):
-                         insertbatch(Batch,session)
+                         warnedTime =  (datetime.datetime.now() - start).total_seconds()
+                         insertbatch(Batch,session, timestampTdT,warnedTime)
+                         WarnedCounter = WarnedCounter + 10000
+                         Warnedtab.append((WarnedCounter,warnedTime))
                          Batch = []
-                insertbatch(Batch,session)
+                warnedTime =  (datetime.datetime.now() - start).total_seconds()
+                WarnedCounter = WarnedCounter + len(Batch)
+                Warnedtab.append((WarnedCounter,warnedTime))
+                insertbatch(Batch,session, timestampTdT,warnedTime)
                 print "insert batch " + str(i)
-
+    timediff=datetime.datetime.now()-start
+    delai = 0
+    threshold  = 0.8 * Warnedtab[-1][0]
+    for i,j in Warnedtab:
+        if i>threshold:
+            delai = j
+            break;
+    print "Total process time :  " + timediff +" seconds"
+    print "Time to warn 80% : "+delai+" seconds"
     return Result
 
 
