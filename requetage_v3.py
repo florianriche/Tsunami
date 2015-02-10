@@ -94,13 +94,15 @@ def Requetage(SeismeLatitude,SeismeLongitude, timestampTdT):
                 print "insert batch " + str(i)
     timediff=datetime.datetime.now()-start
     delai = 0
-    threshold  = 0.8 * Warnedtab[-1][0]
+    totalWarned = Warnedtab[-1][0]
+    threshold  = 0.8 * totalWarned
     for i,j in Warnedtab:
         if i>threshold:
             delai = j
             break;
-    print "Total process time :  " + timediff +" seconds"
-    print "Time to warn 80% : "+delai+" seconds"
+    print "Total number of warned Yakuzas/ninjas/lemons/tchang/Otakus/narutos/pokemons/pikachus ...  : "+ str(totalWarned)
+    print "Total process time :  " + str(timediff.total_seconds) +" seconds"
+    print "Time to warn 80% : "+str(delai)+" seconds"
     return Result
 
 
