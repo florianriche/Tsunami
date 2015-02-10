@@ -91,7 +91,7 @@ def Requetage(SeismeLatitude,SeismeLongitude, timestampTdT):
                 WarnedCounter = WarnedCounter + len(Batch)
                 Warnedtab.append((WarnedCounter,warnedTime))
                 insertbatch(Batch,session, timestampTdT, warnedTime)
-                print "insert batch " + str(i)
+                #print "insert batch " + str(i)
     timediff=(datetime.datetime.now() - start).total_seconds()
     delai = 0
     if len(Warnedtab)>0:
@@ -101,6 +101,8 @@ def Requetage(SeismeLatitude,SeismeLongitude, timestampTdT):
             if i>threshold:
                 delai = j
                 break;
+        print "Contacted cities : "+ str(Villes)
+        print "Intervalles : "+ str(Intervalles)
         print "Messages sent : "+ str(totalWarned)
         print "Total process time :  " + str(timediff) +" seconds"
         print "Time to warn 80% : "+str(delai)+" seconds"
