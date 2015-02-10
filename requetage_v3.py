@@ -44,7 +44,7 @@ def round_up(tm):
 def insertbatch(rowsToAdd,session, seismetime, warnedTime):
     batch = BatchStatement()
     for row in rowsToAdd:
-        batch.add(SimpleStatement("INSERT INTO cassandraresult(seismeTime,tel,lat,longi,warnedTime) values(%s , %s , %s , %s , %s)",(seismetime , row[2] , row[0] , row[1] , str(warnedTime))))
+        batch.add(SimpleStatement("INSERT INTO cassandraresult(seismeTime,tel,lat,longi,warnedTime) values(%s , %s , %s , %s , %s)"),(seismetime , row[2] , row[0] , row[1] , str(warnedTime)))
     session.execute(batch)
 
 # select Tel, lat and long being in the cities in the seism area: perform queries
