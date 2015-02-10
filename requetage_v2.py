@@ -90,7 +90,7 @@ Long_seism = 135.0
 time_seism = '2015-01-25 10:50'
 
 #IPaddresses of the 5 clusters
-IPaddressesTables=['172.31.53.38','172.31.53.39','172.31.53.40','172.31.53.41', '172.31.53.41']
+IPaddressesTables=['172.31.53.39','172.31.53.38','172.31.53.40','172.31.53.41', '172.31.53.41']
 
 #SHUTDOWN ONE NODE
 #return the number of the node
