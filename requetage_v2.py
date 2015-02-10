@@ -19,12 +19,13 @@ session.execute("USE test;")
 #-------------------------------------------------------------------------------------------------#
 # select cities, send queries to Cassandra
 #-------------------------------------------------------------------------------------------------#
-from selection_villes import findListVilles
+from selection_villes import findListVilles, getClosest
 import datetime
 import time
 import math
 from cassandra.query import BatchStatement
 from cassandra.query import SimpleStatement
+import os
 
 # round hour e.g. 23:44 -> 23:40
 def round_up(tm):
@@ -88,5 +89,14 @@ Lat_seism  = 35.01
 Long_seism = 135.0
 time_seism = '2015-01-25 10:50'
 
+#IPaddresses of the 5 clusters
+IPaddressesTables=['bla1','bla2','bla3','bla4','bla5']
+
 # run functions
 Result = Requetage(Lat_seism, Long_seism, time_seism)
+
+#SHUTDOWN ONE NODE
+#return the number of the node
+_,nodeToCut=getClosest(Lat_seism, Long_seism)
+#send a bash command
+os.system("nodetool -h "+IPaddressesTables[nodeToCut]+" stopdaemon")
