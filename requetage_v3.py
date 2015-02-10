@@ -92,7 +92,7 @@ def Requetage(SeismeLatitude,SeismeLongitude, timestampTdT):
                 Warnedtab.append((WarnedCounter,warnedTime))
                 insertbatch(Batch,session, timestampTdT, warnedTime)
                 print "insert batch " + str(i)
-    timediff=(datetime.datetime.now() - start).total_seconds
+    timediff=(datetime.datetime.now() - start).total_seconds()
     delai = 0
     if len(Warnedtab)>0:
         totalWarned = Warnedtab[-1][0]
