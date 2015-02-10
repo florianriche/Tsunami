@@ -2,14 +2,12 @@
 
 from cassandra.cluster import Cluster
 
-cluster = Cluster() # 127.0.0.1 parce qu'on a créé un tunnel ssh
+cluster = Cluster()
 session = cluster.connect()
 
 # CREATE CASSANDRARESULT TABLE
 
 # PARAMETRES
-#keyspace = "test"
-table    = "test_spark_bigtext"
 session.execute("USE test;")
 
 #-------------------------------------------------------------------------------------------------#
@@ -31,8 +29,6 @@ def round_up(tm):
 def insertbatch(rowsToAdd,session):
     batch = BatchStatement()
     for row in rowsToAdd:
-
-
         batch.add(SimpleStatement("INSERT INTO cassandraresult(tel,lat,longi) values(%s,%s,%s)"),(row[2],row[0],row[1]))
     session.execute(batch)
 
@@ -71,7 +67,6 @@ def Requetage(SeismeLatitude,SeismeLongitude, timestampTdT):
                          insertbatch(Batch,session)
                          Batch = []
                 insertbatch(Batch,session)
-
                 print "youpiiiiiii" + str(i)
 
     return Result
