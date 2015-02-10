@@ -6,7 +6,12 @@ This code enables to:
     - the queries are built with Python:
         1. select cities being inside a 500km radius circle whose center is the seism epicenter
         2. select telephone numbers, latitude, longitude corresponding to these cities, in a time range from t0 = date_seism to t0 + 1hour
+Create:
+    - CREATE KEYSPACE test WITH replication = {   'class': 'SimpleStrategy',   'replication_factor': 2 };
+    - create table cassandraresult (tel text,lat text,longi text, PRIMARY KEY (tel, lat));
+    - create table test_spark_bigText(t timestamp, id_ville text, tels text, primary key ((t,id_ville)));
 """
+
 from cassandra.cluster import Cluster
 
 # Connect to the cluster
@@ -90,7 +95,7 @@ Long_seism = 135.0
 time_seism = '2015-01-25 10:50'
 
 #IPaddresses of the 5 clusters
-IPaddressesTables=['172.31.53.39','172.31.53.38','172.31.53.40','172.31.53.41', '172.31.53.41']
+IPaddressesTables=['172.31.53.38','172.31.53.39','172.31.53.40','172.31.53.41', '172.31.53.41']
 
 #SHUTDOWN ONE NODE
 #return the number of the node
