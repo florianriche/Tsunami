@@ -60,7 +60,7 @@ def Requetage(SeismeLatitude,SeismeLongitude, timestampTdT):
     WarnedCounter = 0
     # select an hour from timestampTdT
     for i in range(10,70,10):
-        time = time+datetime.timedelta(0,0,0,0,10,0,0)
+        time = time - datetime.timedelta(0,0,0,0,10,0,0)
         # convert time to string
         strTime = time.strftime('%Y-%m-%d %H:%M')
         Intervalles.append(strTime)
