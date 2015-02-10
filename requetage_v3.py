@@ -102,7 +102,7 @@ def Requetage(SeismeLatitude,SeismeLongitude, timestampTdT):
                 delai = j
                 break;
         print "Messages sent : "+ str(totalWarned)
-        print "Total process time :  " + str(timediff.total_seconds) +" seconds"
+        print "Total process time :  " + str(timediff) +" seconds"
         print "Time to warn 80% : "+str(delai)+" seconds"
     else:  
         print " No one has been warned ! Tooo baaaad !!"
