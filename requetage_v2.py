@@ -81,7 +81,7 @@ def Requetage(SeismeLatitude,SeismeLongitude, timestampTdT):
                          insertbatch(Batch,session)
                          Batch = []
                 insertbatch(Batch,session)
-                print "youpiiiiiii" + str(i)
+                print "insert batch " + str(i)
 
     return Result
 
@@ -95,7 +95,7 @@ Long_seism = 135.0
 time_seism = '2015-01-25 10:50'
 
 #IPaddresses of the 5 clusters
-IPaddressesTables=['172.31.53.38','172.31.53.39','172.31.53.40','172.31.53.41', '172.31.53.41']
+IPaddressesTables=['172.31.53.39','172.31.53.38','172.31.53.40','172.31.53.41', '172.31.53.41']
 
 # Shut the closest node down
 _,nodeToCut=getClosest(Lat_seism, Long_seism)
