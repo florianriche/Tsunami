@@ -44,7 +44,7 @@ def round_up(tm):
 def insertbatch(rowsToAdd,session, seismetime, warnedTime):
     batch = BatchStatement()
     for row in rowsToAdd:
-        batch.add(SimpleStatement("INSERT INTO cassandraresult(seismeTime,tel,lat,longi,warnedTime) values(%s,%s,%s,%s,%s);",(str(seismetime),row[2],row[0],row[1],str(warnedTime))))
+        batch.add(SimpleStatement("INSERT INTO cassandraresult(seismeTime,tel,lat,longi,warnedTime) values(%s,%s,%s,%s,%s)",(str(seismetime),row[2],row[0],row[1],str(warnedTime))))
     session.execute(batch)
 
 # select Tel, lat and long being in the cities in the seism area: perform queries
@@ -90,19 +90,22 @@ def Requetage(SeismeLatitude,SeismeLongitude, timestampTdT):
                 warnedTime =  (datetime.datetime.now() - start).total_seconds()
                 WarnedCounter = WarnedCounter + len(Batch)
                 Warnedtab.append((WarnedCounter,warnedTime))
-                insertbatch(Batch,session, timestampTdT,warnedTime)
+                insertbatch(Batch,session, timestampTdT, warnedTime)
                 print "insert batch " + str(i)
-    timediff=datetime.datetime.now()-start
+    timediff=datetime.datetime.now() - start
     delai = 0
-    totalWarned = Warnedtab[-1][0]
-    threshold  = 0.8 * totalWarned
-    for i,j in Warnedtab:
-        if i>threshold:
-            delai = j
-            break;
+    if len(Warnedtab)>0:
+        totalWarned = Warnedtab[-1][0]
+        threshold  = 0.8 * totalWarned
+        for i,j in Warnedtab:
+            if i>threshold:
+                delai = j
+                break;
     print "Total number of warned Yakuzas/ninjas/lemons/tchang/Otakus/narutos/pokemons/pikachus ...  : "+ str(totalWarned)
     print "Total process time :  " + str(timediff.total_seconds) +" seconds"
     print "Time to warn 80% : "+str(delai)+" seconds"
+    else:  
+        print " No one has been warned ! Tooo baaaad !!"
     return Result
 
 
