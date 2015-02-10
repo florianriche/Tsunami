@@ -98,6 +98,13 @@ _,nodeToCut=getClosest(Lat_seism, Long_seism)
 #send a bash command
 os.system("nodetool -h "+IPaddressesTables[nodeToCut]+" stopdaemon")
 
+# Connect to the cluster
+cluster = Cluster()
+session = cluster.connect()
+
+# PARAMETRES
+session.execute("USE test;")
+
 # run functions
 Result = Requetage(Lat_seism, Long_seism, time_seism)
 
