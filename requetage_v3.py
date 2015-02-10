@@ -92,8 +92,9 @@ def Requetage(SeismeLatitude,SeismeLongitude, timestampTdT):
 # seism info:
 Lat_seism  = float(raw_input('latitude : '))#35.01
 Long_seism = float(raw_input('longitude : '))#135.0
-time_seism = raw_input('datetime: ')#'2015-01-25 10:50'
+time_seism = raw_input('datetime YYYY-MM-DD HH:MM: ')#'2015-01-25 10:50'
 
+'''
 #IPaddresses of the 5 clusters
 IPaddressesTables=['172.31.53.38','172.31.53.39','172.31.53.40','172.31.53.41', '172.31.53.41']
 
@@ -104,7 +105,7 @@ os.system("nodetool -h "+IPaddressesTables[nodeToCut]+" stopdaemon")
 
 # parametre
 session.execute("USE test;")
-
+'''
 # run functions
 Result = Requetage(Lat_seism, Long_seism, time_seism)
 
