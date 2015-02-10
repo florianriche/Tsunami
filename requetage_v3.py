@@ -101,9 +101,9 @@ def Requetage(SeismeLatitude,SeismeLongitude, timestampTdT):
             if i>threshold:
                 delai = j
                 break;
-    print "Total number of warned Yakuzas/ninjas/lemons/tchang/Otakus/narutos/pokemons/pikachus ...  : "+ str(totalWarned)
-    print "Total process time :  " + str(timediff.total_seconds) +" seconds"
-    print "Time to warn 80% : "+str(delai)+" seconds"
+        print "Total number of warned Yakuzas/ninjas/lemons/tchang/Otakus/narutos/pokemons/pikachus ...  : "+ str(totalWarned)
+        print "Total process time :  " + str(timediff.total_seconds) +" seconds"
+        print "Time to warn 80% : "+str(delai)+" seconds"
     else:  
         print " No one has been warned ! Tooo baaaad !!"
     return Result
