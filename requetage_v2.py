@@ -1,15 +1,23 @@
 # -*- coding: utf-8 -*-
-
+"""
+This code enables to:
+    - connect to the Cassandra cluster on a specified keyspace
+    - send queries to the Cassandra table containing the preprocessed data (with spark)
+    - the queries are built with Python:
+        1. select cities being inside a 500km radius circle whose center is the seism epicenter
+        2. select telephone numbers, latitude, longitude corresponding to these cities, in a time range from t0 = date_seism to t0 + 1hour
+"""
 from cassandra.cluster import Cluster
 
+# Connect to the cluster
 cluster = Cluster()
 session = cluster.connect()
-
-# CREATE CASSANDRARESULT TABLE
 
 # PARAMETRES
 session.execute("USE test;")
 
+#-------------------------------------------------------------------------------------------------#
+# select cities, send queries to Cassandra
 #-------------------------------------------------------------------------------------------------#
 from selection_villes import findListVilles
 import datetime
@@ -26,14 +34,14 @@ def round_up(tm):
     newtime = newtime.replace(second=0)
     return newtime
 
+# function that insert the results of a the queries to a Cassandra table "cassandraresult"
 def insertbatch(rowsToAdd,session):
     batch = BatchStatement()
     for row in rowsToAdd:
         batch.add(SimpleStatement("INSERT INTO cassandraresult(tel,lat,longi) values(%s,%s,%s)"),(row[2],row[0],row[1]))
     session.execute(batch)
 
-
-# select Tel, lat and long being in the cities in the seism area
+# select Tel, lat and long being in the cities in the seism area: perform queries
 def Requetage(SeismeLatitude,SeismeLongitude, timestampTdT):
     # select villes
     Villes=findListVilles(SeismeLatitude,SeismeLongitude)
@@ -47,8 +55,8 @@ def Requetage(SeismeLatitude,SeismeLongitude, timestampTdT):
         # convert time to string
         strTime = time.strftime('%Y-%m-%d %H:%M')
         Intervalles.append(strTime)
-    # request on CASSANDRA
 
+    # request on CASSANDRA, batch size = 10000
     for ville in Villes:
         for t in Intervalles:
             Result = session.execute("SELECT tels FROM test_spark_bigtext WHERE T = %s AND Id_Ville = %s;", (t, ville))
@@ -73,8 +81,12 @@ def Requetage(SeismeLatitude,SeismeLongitude, timestampTdT):
 
 
 #------------------------------------------------------------------------------------------------#
-# Test de requête
+# Requête
 
-#Requetage(35.01, 135.0, datetime.datetime(2015,01,01,23,44))
-Result = Requetage(35.01, 135.0, '2015-01-25 10:50')
-#print Result
+# seism info:
+Lat_seism  = 35.01
+Long_seism = 135.0
+time_seism = '2015-01-25 10:50'
+
+# run functions
+Result = Requetage(Lat_seism, Long_seism, time_seism)
