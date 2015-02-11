@@ -42,7 +42,7 @@ ssh -i <my-key-pair>.pem ubuntu@<ip-master> then launch "cqlsh"
 On spark terminal, copy/paste the file sparkCSV.scala
 
 ##6-Install Python Librairies on the AMIs:
-
+Git clone this repository and then execute
 ```javascript
 sh config_python.sh
 ```
