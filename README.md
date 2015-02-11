@@ -16,7 +16,8 @@ http://www.datastax.com/documentation/datastax_enterprise/4.6/datastax_enterpris
 
 In Advandced details, set parameters:
 --version enterprise
---analytics nodes 2
+--analytics nodes 6
+--totalnodes 6
 --username datastaxusername
 --password datastaxpassword
 
