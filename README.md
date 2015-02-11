@@ -46,7 +46,6 @@ Git clone this repository and then execute
 ```javascript
 sh config_python.sh
 ```
-and then git clone this repository 
 
 ##7- Create keyspaces and tables on Cassandra
 
