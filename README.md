@@ -54,7 +54,7 @@ create table cassandraresult (tel text,lat text,longi text, PRIMARY KEY (tel, la
 create table test_spark_bigText(t timestamp, id_ville text, tels text, primary key ((t,id_ville)));
 ````
 ##8-Set parameters in Requetage.py
-Insert the IP adresses of the 4 workers nodes in the table IPadresseTab (line 124)
+Insert the IP adresses of the 5 workers nodes in the table IPaddressesTables (line 124)
 ```javascript
 IPaddressesTables=['172.31.53.38','172.31.53.39','172.31.53.40','172.31.53.41', '172.31.53.41']
 ```
