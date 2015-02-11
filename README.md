@@ -1,4 +1,5 @@
 # Tsunami
+#check our [presentation](http://slides.com/florianriche/arato-tsunami/fullscreen)
 
 #USER GUIDE
 
