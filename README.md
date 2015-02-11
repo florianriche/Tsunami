@@ -37,13 +37,15 @@ ssh -i <my-key-pair>.pem ubuntu@<ip-master> then launch "cqlsh"
 
 ##5-On Spark, import data from S3, preprocess the data and save to Cassandra:
 
-execute on spark terminal, launch the file sparkCSV.scala
+On spark terminal, copy/paste the file sparkCSV.scala
 
 ##6-Install Python Librairies on the AMIs:
 
 ```javascript
 sh config_python.sh
 ```
+and then git clone this repository 
+
 ##7- Create keyspaces and tables on Cassandra
 
 ```javascript
